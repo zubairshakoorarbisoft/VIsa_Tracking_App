@@ -1,0 +1,141 @@
+﻿@model VisaTracking.Models.Enrollment
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<section>
+    @using (Html.BeginForm("Create", "Enrollments", FormMethod.Post, new { @id = "CreateEnrollmentForm", @enctype = "multipart/form-data" }))
+    {
+        <div class="container">
+            <div class="row justify-content-center">
+
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col text-center">
+                            <h1>Add New Enrollment</h1>
+                        </div>
+                        <hr />
+                    </div>
+                    <div class="row align-items-center mt-4">
+                        <div class="col">
+                            <label asp-for="StudentName" class="control-label"></label>
+                            <input asp-for="StudentName" class="form-control" />
+                            <span asp-validation-for="StudentName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mt-4">
+                        <div class="col">
+                            <label asp-for="FatherName" class="control-label"></label>
+                            <input asp-for="FatherName" class="form-control" />
+                            <span asp-validation-for="FatherName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mt-4">
+                        <div class="col">
+                            <label asp-for="CNICNumber" class="control-label"></label>
+                            <input asp-for="CNICNumber" class="form-control" />
+                            <span asp-validation-for="CNICNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mt-4">
+                        <div class="col">
+                            <label asp-for="PassportNumber" class="control-label"></label>
+                            <input asp-for="PassportNumber" class="form-control" />
+                            <span asp-validation-for="PassportNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mt-4">
+                        <div class="col">
+                            <label asp-for="LastQualification" class="control-label"></label>
+                            <input asp-for="LastQualification" class="form-control" />
+                            <span asp-validation-for="LastQualification" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mt-4">
+                        <div class="col">
+                            <label asp-for="ApplyForCountry" class="control-label"></label>
+                            <input asp-for="ApplyForCountry" class="form-control" />
+                            <span asp-validation-for="ApplyForCountry" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mt-4">
+                        <div class="col">
+                            <label asp-for="GradesObtained" class="control-label"></label>
+                            <input asp-for="GradesObtained" class="form-control" />
+                            <span asp-validation-for="GradesObtained" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mt-4">
+                        <div class="col">
+                            <label asp-for="PrefferedCourse" class="control-label"></label>
+                            <input asp-for="PrefferedCourse" class="form-control" />
+                            <span asp-validation-for="PrefferedCourse" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mt-4">
+                        <div class="col">
+                            <label asp-for="UniversityPreference1" class="control-label"></label>
+                            <input asp-for="UniversityPreference1" class="form-control" />
+                            <span asp-validation-for="UniversityPreference1" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mt-4">
+                        <div class="col">
+                            <label asp-for="UniversityPreference2" class="control-label"></label>
+                            <input asp-for="UniversityPreference2" class="form-control" />
+                            <span asp-validation-for="UniversityPreference2" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mt-4">
+                        <div class="col">
+                            <label asp-for="CurrentAddress" class="control-label"></label>
+                            <input asp-for="CurrentAddress" class="form-control" />
+                            <span asp-validation-for="CurrentAddress" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mt-4">
+                        <div class="col">
+                            <label class="control-label">Attach File(s)</label>
+                            <input class="form-control" type="file" name="files" accept="image/jpg, image/jpeg, application/pdf" multiple />
+                        </div>
+                    </div>
+                    <div class="row justify-content-start mt-4">
+                        <div class="col">
+                            <input type="submit" value="Add" class="btn btn-primary" />
+                            @Html.ActionLink("Cancel", "Index", "Enrollments", null, new { @class = "btn btn-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

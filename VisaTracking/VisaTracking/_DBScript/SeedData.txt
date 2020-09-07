@@ -1,0 +1,27 @@
+USE [VisaTracking]
+GO
+INSERT [dbo].[AspNetRoles] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'1', N'Super Admin', NULL, NULL)
+INSERT [dbo].[AspNetRoles] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'2', N'Admin', NULL, NULL)
+INSERT [dbo].[AspNetRoles] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'3', N'Counselor', NULL, NULL)
+INSERT [dbo].[AspNetRoles] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'4', N'Processor', NULL, NULL)
+INSERT [dbo].[AspNetRoles] ([Id], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'5', N'Operator', NULL, NULL)
+INSERT [dbo].[AspNetUsers] ([Id], [UserName], [NormalizedUserName], [Email], [NormalizedEmail], [EmailConfirmed], [PasswordHash], [SecurityStamp], [ConcurrencyStamp], [PhoneNumber], [PhoneNumberConfirmed], [TwoFactorEnabled], [LockoutEnd], [LockoutEnabled], [AccessFailedCount]) VALUES (N'7d979bb9-617a-491a-b109-c7410cca0118', N'zubair.shakoor@arbisoft.com', N'ZUBAIR.SHAKOOR@ARBISOFT.COM', N'zubair.shakoor@arbisoft.com', N'ZUBAIR.SHAKOOR@ARBISOFT.COM', 1, N'AQAAAAEAACcQAAAAEHBb7BgGDCT38s1gPW+AfEthVLxiR7hU9NqDAQweyUMeuUS11NsiFwqL9eTUNj+UiA==', N'MIUOG7R67LAY5LIBXHFEN5F2XHZNO4PQ', N'ffbb87c2-54e1-4ea2-bd88-e0fd05d3dcf7', NULL, 0, 0, NULL, 1, 0)
+INSERT [dbo].[AspNetUserRoles] ([UserId], [RoleId]) VALUES (N'7d979bb9-617a-491a-b109-c7410cca0118', N'1')
+SET IDENTITY_INSERT [dbo].[AspNetUserClaims] ON 
+
+INSERT [dbo].[AspNetUserClaims] ([Id], [UserId], [ClaimType], [ClaimValue]) VALUES (1, N'7d979bb9-617a-491a-b109-c7410cca0118', N'Create Role', N'Create Role')
+INSERT [dbo].[AspNetUserClaims] ([Id], [UserId], [ClaimType], [ClaimValue]) VALUES (2, N'7d979bb9-617a-491a-b109-c7410cca0118', N'Edit Role', N'Edit Role')
+INSERT [dbo].[AspNetUserClaims] ([Id], [UserId], [ClaimType], [ClaimValue]) VALUES (3, N'7d979bb9-617a-491a-b109-c7410cca0118', N'Delete Role', N'Delete Role')
+SET IDENTITY_INSERT [dbo].[AspNetUserClaims] OFF
+SET IDENTITY_INSERT [dbo].[VisaStatuses] ON 
+
+INSERT [dbo].[VisaStatuses] ([Id], [Status]) VALUES (1, N'Documents Received')
+INSERT [dbo].[VisaStatuses] ([Id], [Status]) VALUES (2, N'Documents Completed')
+INSERT [dbo].[VisaStatuses] ([Id], [Status]) VALUES (3, N'Admission Processed')
+INSERT [dbo].[VisaStatuses] ([Id], [Status]) VALUES (4, N'Conditional Offer Letter')
+INSERT [dbo].[VisaStatuses] ([Id], [Status]) VALUES (5, N'GTE Processed')
+INSERT [dbo].[VisaStatuses] ([Id], [Status]) VALUES (6, N'Un-Conditional Offer Letter')
+INSERT [dbo].[VisaStatuses] ([Id], [Status]) VALUES (7, N'Fee Paid')
+INSERT [dbo].[VisaStatuses] ([Id], [Status]) VALUES (8, N'Visa Submitted')
+INSERT [dbo].[VisaStatuses] ([Id], [Status]) VALUES (9, N'Visa Decision')
+SET IDENTITY_INSERT [dbo].[VisaStatuses] OFF

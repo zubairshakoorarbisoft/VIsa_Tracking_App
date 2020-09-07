@@ -1,0 +1,140 @@
+﻿@model VisaTracking.Models.Enrollment
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div>
+    <h4>Enrollment Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StudentName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StudentName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FatherName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FatherName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CNICNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CNICNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PassportNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PassportNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LastQualification)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastQualification)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ApplyForCountry)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ApplyForCountry)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.GradesObtained)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.GradesObtained)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PrefferedCourse)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PrefferedCourse)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UniversityPreference1)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UniversityPreference1)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UniversityPreference2)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UniversityPreference2)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ApplicationStartDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ApplicationStartDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ApplicationEndDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ApplicationEndDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CurrentAddress)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CurrentAddress)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.VisaStatus)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.VisaStatus.Status)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FeePaid)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FeePaid)
+        </dd>
+    </dl>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <section>
+            <h4>Attachments</h4>
+            <hr>
+            <div>
+                <table class="table table-responsive-sm table-bordered">
+                    <tr>
+                        <th>Attached Documents</th>
+                        <th>Actions</th>
+                    </tr>
+                    @if (Model.EnrollmentAttachedDocuments.Any())
+                    {
+                        @foreach (var documentName in Model.EnrollmentAttachedDocuments)
+                        {
+                            string[] seprator = { "10___01" };
+                            <tr>
+                                <td>@documentName.Name.Split(seprator, System.StringSplitOptions.RemoveEmptyEntries)[1]</td>
+                                <td><a class="btn btn-sm btn-primary" target="_blank" href="~/enrollmentDocuments/@documentName.Name">View</a> | <a class="btn btn-sm btn-primary" download="" href="~/enrollmentDocuments/@documentName.Name">Download</a></td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="2" class="text-center">No document attached with this enrollment yet</td>
+                        </tr>
+                    }
+                </table>
+
+            </div>
+        </section>
+    </div>
+</div>
+<div>
+    <a style="display:@(Model.VisaStatusId == 9? "none": "")" class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    <a class="btn btn-default" asp-action="Index">Back</a>
+</div>
