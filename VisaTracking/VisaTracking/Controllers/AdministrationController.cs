@@ -403,7 +403,6 @@ namespace VisaTracking.Controllers
                             case 3:
                                 model.Claims.Add(new UserClaim { ClaimsType = "Create Role" });
                                 model.Claims.Add(new UserClaim { ClaimsType = "Edit Role" });
-                                model.Claims.Add(new UserClaim { ClaimsType = "Delete Role" });
                                 break;
                             case 4:
                                 model.Claims.Add(new UserClaim { ClaimsType = "Edit Role" });

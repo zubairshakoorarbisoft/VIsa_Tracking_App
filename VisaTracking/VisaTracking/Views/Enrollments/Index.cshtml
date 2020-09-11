@@ -6,7 +6,22 @@
 
 <h2>Enrollments</h2>
 <div class="row">
-    @Html.ActionLink("+", "Create", "Enrollments", null, new { @class = "btn btn-primary" })
+    <div class="col-1">
+        @Html.ActionLink("+", "Create", "Enrollments", null, new { @class = "btn btn-primary" })
+    </div>
+    <div class="col-2">
+        @{
+            if (ViewBag.IsShowClosed)
+            {
+                @Html.ActionLink("Show In Progress", "Index", "Enrollments", new { IsShowClosed = false }, new { @class = "btn btn-primary" })
+            }
+            else
+            {
+                @Html.ActionLink("Show Closed", "Index", "Enrollments", new { IsShowClosed = true }, new { @class = "btn btn-danger" })
+            }
+        }
+
+    </div>
 </div>
 <br />
 <div class="row text-center">
@@ -58,7 +73,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.PrefferedCourse)
                 </td>
-                <td style = "color:@(item.VisaStatusId == 9? "green": "black")">
+                <td style="color:@(item.VisaStatusId == 9? "green": "black")">
                     <strong>@Html.DisplayFor(modelItem => item.VisaStatus.Status)</strong>
                 </td>
                 <td>

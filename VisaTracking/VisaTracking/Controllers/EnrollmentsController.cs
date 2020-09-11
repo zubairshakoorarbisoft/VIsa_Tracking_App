@@ -60,10 +60,20 @@ namespace VisaTracking.Controllers
         #endregion
 
         // GET: Enrollments
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(bool IsShowClosed = false)
         {
-            var applicationDbContext = _context.Enrollments.Include(e => e.VisaStatus);
-            return View(await applicationDbContext.ToListAsync());
+            string userId = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id;
+            ViewBag.RoleName = _context.Roles.FirstOrDefault(i => i.Id == _context.UserRoles.FirstOrDefault(u => u.UserId == userId).RoleId).Name;
+            if (ViewBag.RoleName == "Counselor")
+            {
+                var filteredEnrollments = IsShowClosed ? _context.Enrollments.Where(i => i.CreatedByEmailAddress == User.Identity.Name && i.VisaStatusId == 9).Include(e => e.VisaStatus) :
+                    _context.Enrollments.Where(i => i.CreatedByEmailAddress == User.Identity.Name && i.VisaStatusId != 9).Include(e => e.VisaStatus);
+                return View(await filteredEnrollments.ToListAsync());
+            }
+            var allEnrollments = IsShowClosed ? _context.Enrollments.Where(i => i.VisaStatusId == 9).Include(e => e.VisaStatus) :
+                _context.Enrollments.Where(i => i.VisaStatusId != 9).Include(e => e.VisaStatus);
+            ViewBag.IsShowClosed = IsShowClosed;
+            return View(await allEnrollments.ToListAsync());
         }
 
         // GET: Enrollments/Details/5
@@ -98,6 +108,8 @@ namespace VisaTracking.Controllers
         [Authorize(Policy = "CreateRolePolicy")]
         public IActionResult Create()
         {
+            string userId = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id;
+            ViewBag.RoleName = _context.Roles.FirstOrDefault(i => i.Id == _context.UserRoles.FirstOrDefault(u => u.UserId == userId).RoleId).Name;
             ViewData["VisaStatusId"] = new SelectList(_context.VisaStatuses, "Id", "Status");
             return View();
         }
@@ -108,11 +120,12 @@ namespace VisaTracking.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Policy = "CreateRolePolicy")]
-        public async Task<IActionResult> Create([Bind("Id,StudentName,FatherName,CNICNumber,PassportNumber,LastQualification,ApplyForCountry,GradesObtained,PrefferedCourse,UniversityPreference1,UniversityPreference2,CurrentAddress,RelevantFiles,VisaStatusId")] Enrollment enrollment, List<IFormFile> files)
+        public async Task<IActionResult> Create(Enrollment enrollment, List<IFormFile> files)
         {
             if (ModelState.IsValid)
             {
                 enrollment.ApplicationStartDate = DateTime.Now;
+                enrollment.CreatedByEmailAddress = User.Identity.Name;
                 enrollment.VisaStatusId = 1;
                 _context.Add(enrollment);
                 await _context.SaveChangesAsync();
@@ -150,6 +163,8 @@ namespace VisaTracking.Controllers
             {
                 return NotFound();
             }
+            string userId = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id;
+            ViewBag.RoleName = _context.Roles.FirstOrDefault(i => i.Id == _context.UserRoles.FirstOrDefault(u => u.UserId == userId).RoleId).Name;
             ViewData["VisaStatusId"] = new SelectList(_context.VisaStatuses, "Id", "Status", enrollment.VisaStatusId);
 
             // Retriving Enrollment Documents
@@ -194,6 +209,7 @@ namespace VisaTracking.Controllers
                     }
                     _context.Update(enrollment);
                     _context.Entry<Enrollment>(enrollment).Property(x => x.ApplicationStartDate).IsModified = false;
+                    _context.Entry<Enrollment>(enrollment).Property(x => x.CreatedByEmailAddress).IsModified = false;
                     await _context.SaveChangesAsync();
                     if (enrollment.VisaStatusId == 9)
                     {
@@ -212,7 +228,7 @@ namespace VisaTracking.Controllers
                                 System.IO.File.Delete(_documentToBeDeleted);
                             }
                         }
-                      
+
                     }
                     List<string> uploadedDocumentsNames = await UploadDocuments(files);
                     List<EnrollmentAttachments> documentAttachements = new List<EnrollmentAttachments>();

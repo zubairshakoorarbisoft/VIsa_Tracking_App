@@ -99,17 +99,17 @@
                             <span asp-validation-for="CurrentAddress" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="row align-items-center mt-4" style="display:@(ViewBag.UserRole == "Processor" || ViewBag.UserRole == "Operator" || ViewBag.UserRole == "Super Admin"?"": "none")">
+                    <div class="row align-items-center mt-4" style="display:@(ViewBag.UserRole == "Counselor" || ViewBag.UserRole == "Admin" || ViewBag.UserRole == "Super Admin"?"": "none")">
                         <div class="col-md-4">
                             <label asp-for="VisaStatusId" class="control-label"></label>
                             <select asp-for="VisaStatusId" class="form-control" asp-items="ViewBag.VisaStatusId"></select>
                         </div>
-                        <div class="col-md-4 feePaidDiv" style="display:@(Model.VisaStatusId == 7 || Model.VisaStatusId == 9? "": "none")">
+                        <div class="col-md-4 feePaidDiv" style="display:@(Model.VisaStatusId >= 7? "": "none")">
                             <label asp-for="FeePaid" class="control-label"></label>
-                            <input asp-for="FeePaid" class="form-control" />
+                            <input asp-for="FeePaid" class="form-control" readonly="@(ViewBag.RoleName == "Admin"? false: true)"/>
                             <span asp-validation-for="FeePaid" class="text-danger"></span>
                         </div>
-                        <div class="col-md-4 feePaidDiv" style="display:@(Model.VisaStatusId == 7 || Model.VisaStatusId == 9? "": "none")">
+                        <div class="col-md-4 feePaidDiv" style="display:@(Model.VisaStatusId >= 7? "": "none")">
                             <label asp-for="FeePaidHalf" class="control-label"></label>
                             <input asp-for="FeePaidHalf" class="form-control" readonly/>
                         </div>
@@ -192,8 +192,7 @@
                     $('#attachDocumentSpan').text("Attach More File(s)");
                     $('#attachDocumentSpan').css('color', "black");
                 }
-
-                if (e.target.value === '7' || e.target.value === '9') {
+                if (parseInt(e.target.value) > 6) {
                     $('.feePaidDiv').css('display', 'block');
                 }
                 else {
