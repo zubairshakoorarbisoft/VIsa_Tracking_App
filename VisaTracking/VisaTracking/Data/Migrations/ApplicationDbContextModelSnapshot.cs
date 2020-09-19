@@ -232,6 +232,9 @@ namespace VisaTracking.Data.Migrations
                     b.Property<DateTime>("ApplicationStartDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("ApplicationUpdatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ApplyForCountry")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -264,6 +267,9 @@ namespace VisaTracking.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PrefferedCourse")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Remarks")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StudentName")

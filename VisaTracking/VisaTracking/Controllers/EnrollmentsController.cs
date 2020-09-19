@@ -44,7 +44,8 @@ namespace VisaTracking.Controllers
                 {
                     // full path to file in temp location
                     var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "enrollmentDocuments");
-                    var fileName = string.Concat(Stopwatch.GetTimestamp().ToString(), Guid.NewGuid().ToString() + "10___01" + formFile.FileName);
+                    string uploadedTime = string.Concat(DateTime.Now.ToString("dddd, dd MMMM yyyy"), " ", DateTime.Now.ToString("hh:mm tt")).Replace(" ", "__SPC").Replace(":", "__COL");
+                    var fileName = string.Concat(uploadedTime , "__TS__", Guid.NewGuid().ToString() + "10___01" + formFile.FileName);
                     var fileNameWithPath = string.Concat(filePath, "\\", fileName);
                     enrollmentDocumentsNames.Add(fileName);
 
@@ -62,6 +63,7 @@ namespace VisaTracking.Controllers
         // GET: Enrollments
         public async Task<IActionResult> Index(bool IsShowClosed = false)
         {
+            ViewBag.IsShowClosed = IsShowClosed;
             string userId = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id;
             ViewBag.RoleName = _context.Roles.FirstOrDefault(i => i.Id == _context.UserRoles.FirstOrDefault(u => u.UserId == userId).RoleId).Name;
             if (ViewBag.RoleName == "Counselor")
@@ -72,7 +74,6 @@ namespace VisaTracking.Controllers
             }
             var allEnrollments = IsShowClosed ? _context.Enrollments.Where(i => i.VisaStatusId == 9).Include(e => e.VisaStatus) :
                 _context.Enrollments.Where(i => i.VisaStatusId != 9).Include(e => e.VisaStatus);
-            ViewBag.IsShowClosed = IsShowClosed;
             return View(await allEnrollments.ToListAsync());
         }
 
@@ -207,6 +208,7 @@ namespace VisaTracking.Controllers
                     {
                         enrollment.ApplicationEndDate = DateTime.Now;
                     }
+                    enrollment.ApplicationUpdatedDate = DateTime.Now;
                     _context.Update(enrollment);
                     _context.Entry<Enrollment>(enrollment).Property(x => x.ApplicationStartDate).IsModified = false;
                     _context.Entry<Enrollment>(enrollment).Property(x => x.CreatedByEmailAddress).IsModified = false;

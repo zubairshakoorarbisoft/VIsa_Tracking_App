@@ -99,19 +99,26 @@
                             <span asp-validation-for="CurrentAddress" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="row align-items-center mt-4" style="display:@(ViewBag.UserRole == "Counselor" || ViewBag.UserRole == "Admin" || ViewBag.UserRole == "Super Admin"?"": "none")">
+                    <div class="row align-items-center mt-4" style="display:@(ViewBag.UserRole != "Counselor"?"": "none")">
                         <div class="col-md-4">
                             <label asp-for="VisaStatusId" class="control-label"></label>
                             <select asp-for="VisaStatusId" class="form-control" asp-items="ViewBag.VisaStatusId"></select>
                         </div>
                         <div class="col-md-4 feePaidDiv" style="display:@(Model.VisaStatusId >= 7? "": "none")">
                             <label asp-for="FeePaid" class="control-label"></label>
-                            <input asp-for="FeePaid" class="form-control" readonly="@(ViewBag.RoleName == "Admin"? false: true)"/>
+                            <input asp-for="FeePaid" class="form-control" readonly="@(ViewBag.RoleName == "Admin"? false: true)" />
                             <span asp-validation-for="FeePaid" class="text-danger"></span>
                         </div>
                         <div class="col-md-4 feePaidDiv" style="display:@(Model.VisaStatusId >= 7? "": "none")">
                             <label asp-for="FeePaidHalf" class="control-label"></label>
-                            <input asp-for="FeePaidHalf" class="form-control" readonly/>
+                            <input asp-for="FeePaidHalf" class="form-control" readonly />
+                        </div>
+                    </div>
+                    <div class="row align-items-center mt-4">
+                        <div class="col">
+                            <label asp-for="Remarks" class="control-label"></label>
+                            <textarea asp-for="Remarks" class="form-control"> </textarea>
+                            <span asp-validation-for="Remarks" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="row align-items-center mt-4">
@@ -120,7 +127,6 @@
                             <input class="form-control" type="file" name="files" accept="image/jpg, image/jpeg, application/pdf" multiple />
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-12">
                             <section>
@@ -140,15 +146,16 @@
                                     <table class="table table-responsive-sm table-bordered">
                                         <tr>
                                             <th>Attached Documents</th>
+                                            <th>Uploaded On</th>
                                             <th>Actions</th>
                                         </tr>
                                         @if (Model.EnrollmentAttachedDocuments.Any())
                                         {
                                             @foreach (var documentName in Model.EnrollmentAttachedDocuments)
                                             {
-                                                string[] seprator = { "10___01" };
                                                 <tr>
-                                                    <td>@documentName.Name.Split(seprator, System.StringSplitOptions.RemoveEmptyEntries)[1]</td>
+                                                    <td>@documentName.Name.Split(new string[] { "10___01" }, System.StringSplitOptions.RemoveEmptyEntries)[1]</td>
+                                                    <td>@documentName.Name.Split(new string[] { "__TS__" }, System.StringSplitOptions.RemoveEmptyEntries)[0].Replace("__SPC", " ").Replace("__COL", ":")</td>
                                                     <td>
                                                         <a class="btn btn-sm btn-primary" target="_blank" href="~/enrollmentDocuments/@documentName.Name">View</a>
                                                         | <a class="btn btn-sm btn-primary" download="" href="~/enrollmentDocuments/@documentName.Name">Download</a>
@@ -159,7 +166,7 @@
                                         else
                                         {
                                             <tr>
-                                                <td colspan="2" class="text-center">No document attached with this enrollment yet</td>
+                                                <td colspan="3" class="text-center">No document attached with this enrollment yet</td>
                                             </tr>
                                         }
                                     </table>

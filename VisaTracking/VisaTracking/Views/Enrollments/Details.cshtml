@@ -98,10 +98,16 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.FeePaid)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Remarks)
+        </dt>
+        <dd class="col-sm-10">
+            <textarea class="form-control" readonly>@Model.Remarks</textarea>
+        </dd>
     </dl>
 </div>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <section>
             <h4>Attachments</h4>
             <hr>
@@ -109,6 +115,7 @@
                 <table class="table table-responsive-sm table-bordered">
                     <tr>
                         <th>Attached Documents</th>
+                        <th>Uploaded On</th>
                         <th>Actions</th>
                     </tr>
                     @if (Model.EnrollmentAttachedDocuments.Any())
@@ -116,10 +123,11 @@
                         @foreach (var documentName in Model.EnrollmentAttachedDocuments)
                         {
                             string[] seprator = { "10___01" };
-                            <tr>
-                                <td>@documentName.Name.Split(seprator, System.StringSplitOptions.RemoveEmptyEntries)[1]</td>
-                                <td><a class="btn btn-sm btn-primary" target="_blank" href="~/enrollmentDocuments/@documentName.Name">View</a> | <a class="btn btn-sm btn-primary" download="" href="~/enrollmentDocuments/@documentName.Name">Download</a></td>
-                            </tr>
+                <tr>
+                    <td>@documentName.Name.Split(seprator, System.StringSplitOptions.RemoveEmptyEntries)[1]</td>
+                    <td>@documentName.Name.Split(new string[] { "__TS__" }, System.StringSplitOptions.RemoveEmptyEntries)[0].Replace("__SPC", " ").Replace("__COL", ":")</td>
+                    <td><a class="btn btn-sm btn-primary" target="_blank" href="~/enrollmentDocuments/@documentName.Name">View</a> | <a class="btn btn-sm btn-primary" download="" href="~/enrollmentDocuments/@documentName.Name">Download</a></td>
+                </tr>
                         }
                     }
                     else

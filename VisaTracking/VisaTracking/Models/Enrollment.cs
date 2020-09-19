@@ -25,18 +25,22 @@ namespace VisaTracking.Models
         public decimal GradesObtained { get; set; }
         [Display(Name = "Preffered Course")]
         public string PrefferedCourse { get; set; }
-        [Display(Name = "First University Preference")]
+        [Display(Name = "First University")]
         public string UniversityPreference1 { get; set; }
-        [Display(Name = "Second University Preference")]
+        [Display(Name = "Second University")]
         public string UniversityPreference2 { get; set; }
-        [Display(Name = "Current Address")]
+        [Display(Name = "Student Of")]
         public string CurrentAddress { get; set; }
         [Display(Name = "Visa Status")]
         public int VisaStatusId { get; set; }
         [Display(Name = "Applied On")]
         public DateTime ApplicationStartDate { get; set; }
+        [Display(Name = "Remarks")]
+        public string Remarks { get; set; }
         [Display(Name = "Decision On")]
         public DateTime ApplicationEndDate { get; set; }
+        [Display(Name = "Last Updated")]
+        public DateTime ApplicationUpdatedDate { get; set; }
         [ForeignKey("VisaStatusId"), Display(Name = "Status")]
         public VisaStatus VisaStatus { get; set; }
         [Display(Name = "Fee Paid")]
