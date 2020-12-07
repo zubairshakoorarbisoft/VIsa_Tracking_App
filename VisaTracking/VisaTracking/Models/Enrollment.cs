@@ -46,6 +46,10 @@ namespace VisaTracking.Models
         [Display(Name = "Fee Paid")]
         public int FeePaid { get; set; }
         public string CreatedByEmailAddress { get; set; }
+        [Display(Name = "Phone No")]
+        public string ContactNo { get; set; }
+        [Display(Name = "Email Address")]
+        public string EmailAddress { get; set; }
 
         #region Not Mapped
         [NotMapped]

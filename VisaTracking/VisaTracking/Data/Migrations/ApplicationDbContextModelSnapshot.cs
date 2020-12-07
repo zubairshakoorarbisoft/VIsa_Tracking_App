@@ -243,10 +243,16 @@ namespace VisaTracking.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ContactNo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CreatedByEmailAddress")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CurrentAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmailAddress")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FatherName")

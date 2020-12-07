@@ -33,6 +33,20 @@
                     </div>
                     <div class="row align-items-center mt-4">
                         <div class="col">
+                            <label asp-for="ContactNo" class="control-label"></label>
+                            <input asp-for="ContactNo" class="form-control" />
+                            <span asp-validation-for="ContactNo" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mt-4">
+                        <div class="col">
+                            <label asp-for="EmailAddress" class="control-label"></label>
+                            <input asp-for="EmailAddress" class="form-control" />
+                            <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mt-4">
+                        <div class="col">
                             <label asp-for="CNICNumber" class="control-label"></label>
                             <input asp-for="CNICNumber" class="form-control" />
                             <span asp-validation-for="CNICNumber" class="text-danger"></span>
